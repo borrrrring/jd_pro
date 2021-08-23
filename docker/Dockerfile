@@ -11,7 +11,7 @@
         ENABLE_HANGUP=false \
         ENABLE_RESET_REPO_URL=true \
         JD_SHELL_URL=https://ghproxy.com/https://github.com/dewe0531/jd_pro.git \
-        JD_SCRIPTS_URL=https://ghproxy.com/https://github.com/chinnkarahoi/jd_scripts.git
+        JD_SCRIPTS_URL=git@gitee.com:lxk0301/jd_scripts.git
     WORKDIR ${JD_DIR}
     RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
         && apk update -f \
@@ -67,6 +67,10 @@
         && cnpm i -g typescript  \
         && cnpm i -g ts-node \   
         && pip3 install requests
+	&& mkdir -p /root/.ssh \
+    	&& echo -e 'need to complete……' > /root/.ssh/id_rsa \
+    	&& chmod 600 /root/.ssh/id_rsa \
+    	&& ssh-keyscan gitee.com > /root/.ssh/known_hosts 
     WORKDIR ${JD_DIR}/app
     RUN yarn
     EXPOSE 6789
