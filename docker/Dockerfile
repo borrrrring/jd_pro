@@ -66,7 +66,7 @@
         && cnpm i \
         && cnpm i -g typescript  \
         && cnpm i -g ts-node \   
-        && pip3 install requests
+        && pip3 install requests \
 	&& mkdir -p /root/.ssh \
     	&& echo -e 'need to complete……' > /root/.ssh/id_rsa \
     	&& chmod 600 /root/.ssh/id_rsa \
