@@ -1,5 +1,5 @@
     FROM node:15.9.0-alpine3.12
-    ARG JD_SHELL=https://github.com/Ph4nt0m-JSK/tsnode.git
+    ARG JD_SHELL=https://github.com/borrrrring/tsnode.git
     ARG JD_SHELL_BRANCH=master
     ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
         LANG=zh_CN.UTF-8 \
@@ -10,11 +10,10 @@
         ENABLE_WEB_PANEL=true \
         ENABLE_HANGUP=false \
         ENABLE_RESET_REPO_URL=true \
-        JD_SHELL_URL=https://github.com/Ph4nt0m-JSK/tsnode.git \
+        JD_SHELL_URL=https://github.com/borrrrring/tsnode.git \
         JD_SCRIPTS_URL=git@gitee.com:lxk0301/jd_scripts.git
     WORKDIR ${JD_DIR}
-    RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-        && apk update -f \
+    RUN apk update -f \
         && apk upgrade \
         && apk --no-cache add -f bash \
                                  coreutils \
@@ -25,14 +24,14 @@
                                  tzdata \
                                  perl \
                                  openssh-client \
-				 python3 \
-		                 py3-pip \
-				 zlib-dev \
+                                 python3 \
+                                 py3-pip \
+                                 zlib-dev \
                                  jpeg-dev \
-	&& apk add --no-cache --virtual .build \
-        			 gcc \
-        			 python3-dev \
-        			 musl-dev \
+        && apk add --no-cache --virtual .build \
+                     gcc \
+                     python3-dev \
+                     musl-dev \
         && rm -rf /var/cache/apk/* \
         && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
         && echo "Asia/Shanghai" > /etc/timezone \
@@ -50,7 +49,7 @@
         && ln -sf $JD_DIR/jcode.sh /usr/local/bin/export_sharecodes \
         && ln -sf $JD_DIR/jcode.sh /usr/local/bin/jcode \
         && ln -sf $JD_DIR/jcsv.sh /usr/local/bin/jcsv \
-	&& ln -sf /usr/bin/python3 /usr/bin/python \
+        && ln -sf /usr/bin/python3 /usr/bin/python \
         && pip3 install --upgrade pip \
         && cd $JD_DIR/jbot \
         && pip3 install -r requirements.txt \
@@ -58,19 +57,19 @@
         && chmod 777 /usr/local/bin/docker-entrypoint.sh \
         && chmod 777 $JD_DIR/*.sh \
         && rm -rf /root/.npm \
-	&& apk del .build \
+        && apk del .build \
         && rm -rf /root/.cache \
-	&&  npm i -g ttyd \
-	&& npm i -S png-js \
+        &&  npm i -g ttyd \
+        && npm i -S png-js \
         && npm i -g cnpm \
         && cnpm i \
         && cnpm i -g typescript  \
-        && cnpm i -g ts-node \   
+        && cnpm i -g ts-node \
         && pip3 install requests \
-	&& mkdir -p /root/.ssh \
-    	&& echo -e 'need to complete……' > /root/.ssh/id_rsa \
-    	&& chmod 600 /root/.ssh/id_rsa \
-    	&& ssh-keyscan gitee.com > /root/.ssh/known_hosts 
+        && mkdir -p /root/.ssh \
+        && echo -e 'need to complete……' > /root/.ssh/id_rsa \
+        && chmod 600 /root/.ssh/id_rsa \
+        && ssh-keyscan gitee.com > /root/.ssh/known_hosts
     WORKDIR ${JD_DIR}/app
     RUN yarn
     EXPOSE 6789
