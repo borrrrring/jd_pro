@@ -133,7 +133,7 @@ EnvChangeNotify=""
 ## 是否添加DIY脚本（选填）
 ## 如果你自己会写shell脚本，并且希望在每次jup.sh这个脚本运行时，额外运行你的DIY脚本，请赋值为 "true"
 ## 同时，请务必将你的脚本命名为 diy.sh (只能叫这个文件名)，放在 config 目录下
-EnableExtraShell=""
+EnableJupDiyShell=""
 
 ## 启用其他开发者的仓库方式一（选填）：完整更新整个仓库，针对同一个仓库，方式一和方式二只能选择一种
 ## OwnRepoUrl：仓库地址清单，必须从1开始依次编号
